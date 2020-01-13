@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Session5Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Competition">
+    <Key>
+      <PropertyRef Name="competitionId" />
+    </Key>
+    <Property Name="competitionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="skillIdFK" Type="Int32" Nullable="false" />
+    <Property Name="sessionNo" Type="Int32" Nullable="false" />
+    <Property Name="q1MaxMarks" Type="Int32" Nullable="false" />
+    <Property Name="q2MaxMarks" Type="Int32" Nullable="false" />
+    <Property Name="q3MaxMarks" Type="Int32" Nullable="false" />
+    <Property Name="q4MaxMarks" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Skill" Relationship="Self.FK_Competition_Skill" FromRole="Competition" ToRole="Skill" />
+    <NavigationProperty Name="Results" Relationship="Self.FK_Results_Competition" FromRole="Competition" ToRole="Results" />
+  </EntityType>
+  <EntityType Name="Competitor">
+    <Key>
+      <PropertyRef Name="recordsId" />
+    </Key>
+    <Property Name="recordsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="competitorId" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="skillIdFK" Type="Int32" Nullable="false" />
+    <Property Name="competitorName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="competitorCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="assignedSeat" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Skill" Relationship="Self.FK_Competitor_Skill" FromRole="Competitor" ToRole="Skill" />
+    <NavigationProperty Name="Results" Relationship="Self.FK_Results_Competitor" FromRole="Competitor" ToRole="Results" />
+  </EntityType>
+  <EntityType Name="Result">
+    <Key>
+      <PropertyRef Name="resultsId" />
+    </Key>
+    <Property Name="resultsId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="competitionIdFK" Type="Int32" Nullable="false" />
+    <Property Name="recordsIdFK" Type="Int32" Nullable="false" />
+    <Property Name="q1Marks" Type="Double" Nullable="false" />
+    <Property Name="q2Marks" Type="Double" Nullable="false" />
+    <Property Name="q3Marks" Type="Double" Nullable="false" />
+    <Property Name="q4Marks" Type="Double" Nullable="false" />
+    <Property Name="totalMarks" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Competition" Relationship="Self.FK_Results_Competition" FromRole="Results" ToRole="Competition" />
+    <NavigationProperty Name="Competitor" Relationship="Self.FK_Results_Competitor" FromRole="Results" ToRole="Competitor" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="skillId" />
+    </Key>
+    <Property Name="skillId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="skillName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="noOfCompetitors" Type="Int32" Nullable="false" />
+    <Property Name="expectedMedianMark" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Competitions" Relationship="Self.FK_Competition_Skill" FromRole="Skill" ToRole="Competition" />
+    <NavigationProperty Name="Competitors" Relationship="Self.FK_Competitor_Skill" FromRole="Skill" ToRole="Competitor" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="passwd" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Competition_Skill">
+    <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+    <End Role="Competition" Type="Self.Competition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="skillId" />
+      </Principal>
+      <Dependent Role="Competition">
+        <PropertyRef Name="skillIdFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Results_Competition">
+    <End Role="Competition" Type="Self.Competition" Multiplicity="1" />
+    <End Role="Results" Type="Self.Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="competitionId" />
+      </Principal>
+      <Dependent Role="Results">
+        <PropertyRef Name="competitionIdFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Competitor_Skill">
+    <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+    <End Role="Competitor" Type="Self.Competitor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="skillId" />
+      </Principal>
+      <Dependent Role="Competitor">
+        <PropertyRef Name="skillIdFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Results_Competitor">
+    <End Role="Competitor" Type="Self.Competitor" Multiplicity="1" />
+    <End Role="Results" Type="Self.Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competitor">
+        <PropertyRef Name="recordsId" />
+      </Principal>
+      <Dependent Role="Results">
+        <PropertyRef Name="recordsIdFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Session5Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Competitions" EntityType="Self.Competition" />
+    <EntitySet Name="Competitors" EntityType="Self.Competitor" />
+    <EntitySet Name="Results" EntityType="Self.Result" />
+    <EntitySet Name="Skills" EntityType="Self.Skill" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Competition_Skill" Association="Self.FK_Competition_Skill">
+      <End Role="Skill" EntitySet="Skills" />
+      <End Role="Competition" EntitySet="Competitions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Results_Competition" Association="Self.FK_Results_Competition">
+      <End Role="Competition" EntitySet="Competitions" />
+      <End Role="Results" EntitySet="Results" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Competitor_Skill" Association="Self.FK_Competitor_Skill">
+      <End Role="Skill" EntitySet="Skills" />
+      <End Role="Competitor" EntitySet="Competitors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Results_Competitor" Association="Self.FK_Results_Competitor">
+      <End Role="Competitor" EntitySet="Competitors" />
+      <End Role="Results" EntitySet="Results" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Session5Model.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Session5Model.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+</Schema>

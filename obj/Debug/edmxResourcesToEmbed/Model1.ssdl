@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Session5Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Competition">
+    <Key>
+      <PropertyRef Name="competitionId" />
+    </Key>
+    <Property Name="competitionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="skillIdFK" Type="int" Nullable="false" />
+    <Property Name="sessionNo" Type="int" Nullable="false" />
+    <Property Name="q1MaxMarks" Type="int" Nullable="false" />
+    <Property Name="q2MaxMarks" Type="int" Nullable="false" />
+    <Property Name="q3MaxMarks" Type="int" Nullable="false" />
+    <Property Name="q4MaxMarks" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Competitor">
+    <Key>
+      <PropertyRef Name="recordsId" />
+    </Key>
+    <Property Name="recordsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="competitorId" Type="varchar" MaxLength="3" Nullable="false" />
+    <Property Name="skillIdFK" Type="int" Nullable="false" />
+    <Property Name="competitorName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="competitorCountry" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="assignedSeat" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Results">
+    <Key>
+      <PropertyRef Name="resultsId" />
+    </Key>
+    <Property Name="resultsId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="competitionIdFK" Type="int" Nullable="false" />
+    <Property Name="recordsIdFK" Type="int" Nullable="false" />
+    <Property Name="q1Marks" Type="float" Nullable="false" />
+    <Property Name="q2Marks" Type="float" Nullable="false" />
+    <Property Name="q3Marks" Type="float" Nullable="false" />
+    <Property Name="q4Marks" Type="float" Nullable="false" />
+    <Property Name="totalMarks" Type="float" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Skill">
+    <Key>
+      <PropertyRef Name="skillId" />
+    </Key>
+    <Property Name="skillId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="skillName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="noOfCompetitors" Type="int" Nullable="false" />
+    <Property Name="expectedMedianMark" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="userId" />
+    </Key>
+    <Property Name="userId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="passwd" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Competition_Skill">
+    <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+    <End Role="Competition" Type="Self.Competition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="skillId" />
+      </Principal>
+      <Dependent Role="Competition">
+        <PropertyRef Name="skillIdFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Competitor_Skill">
+    <End Role="Skill" Type="Self.Skill" Multiplicity="1" />
+    <End Role="Competitor" Type="Self.Competitor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Skill">
+        <PropertyRef Name="skillId" />
+      </Principal>
+      <Dependent Role="Competitor">
+        <PropertyRef Name="skillIdFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Results_Competition">
+    <End Role="Competition" Type="Self.Competition" Multiplicity="1" />
+    <End Role="Results" Type="Self.Results" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="competitionId" />
+      </Principal>
+      <Dependent Role="Results">
+        <PropertyRef Name="competitionIdFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Results_Competitor">
+    <End Role="Competitor" Type="Self.Competitor" Multiplicity="1" />
+    <End Role="Results" Type="Self.Results" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competitor">
+        <PropertyRef Name="recordsId" />
+      </Principal>
+      <Dependent Role="Results">
+        <PropertyRef Name="recordsIdFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Session5ModelStoreContainer">
+    <EntitySet Name="Competition" EntityType="Self.Competition" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Competitor" EntityType="Self.Competitor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Results" EntityType="Self.Results" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Competition_Skill" Association="Self.FK_Competition_Skill">
+      <End Role="Skill" EntitySet="Skill" />
+      <End Role="Competition" EntitySet="Competition" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Competitor_Skill" Association="Self.FK_Competitor_Skill">
+      <End Role="Skill" EntitySet="Skill" />
+      <End Role="Competitor" EntitySet="Competitor" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Results_Competition" Association="Self.FK_Results_Competition">
+      <End Role="Competition" EntitySet="Competition" />
+      <End Role="Results" EntitySet="Results" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Results_Competitor" Association="Self.FK_Results_Competitor">
+      <End Role="Competitor" EntitySet="Competitor" />
+      <End Role="Results" EntitySet="Results" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
