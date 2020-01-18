@@ -17,6 +17,7 @@ namespace Session5
         SwapState StateSwap = SwapState.Off;
         int firstswap = 0;
         int secondswap = 0;
+        static Random random = new Random();
         public AssignSeating()
         {
             Initialize();
@@ -60,6 +61,11 @@ namespace Session5
                 {
                     seat7.Visible = false;
                     seat8.Visible = false;
+                }
+                else
+                {
+                    seat7.Visible = true;
+                    seat8.Visible = true;
                 }
 
             }
@@ -341,7 +347,6 @@ namespace Session5
                 }
                 catch(Exception err)
                 {
-                    throw err;
                     MessageBox.Show("An Error has occured!");
                 }
             }
@@ -349,11 +354,41 @@ namespace Session5
         private void Button1_Click(object sender, EventArgs e)
         {
             //random
+            //call update ui to clearscreen
+            UpdateUI();
+            int seat = 1;
+            while(UnassignedList.Count > 0)
+            {
+                int r = random.Next(UnassignedList.Count);
+                if(AssignSeat(seat, UnassignedList[r]))
+                {
+                    seat++;
+                }
+            }
+            unassigned_listbox.Items.Clear();
         }
 
-        private void Button4_Click(object sender, EventArgs e)
+        private async void Button4_Click(object sender, EventArgs e)
         {
             //confirm
+            if(assignedlist.Count > 0)
+            {
+                using (var db = new Session5Entities())
+                {
+                    foreach (var item in assignedlist)
+                    {
+                        var user = (from u in db.Competitors
+                                    where u.recordsId == item.ID
+                                    select u).First();
+                        user.assignedSeat = item.SeatNumber;
+                    }
+                    await db.SaveChangesAsync();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wait... you can't just save without assigning seats to anyone!");
+            }
         }
 
         private void Seat1_Click(object sender, EventArgs e)

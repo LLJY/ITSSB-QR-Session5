@@ -36,6 +36,8 @@
             this.assignedcomp_label = new System.Windows.Forms.Label();
             this.unassigned_label = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.seat7 = new System.Windows.Forms.Button();
+            this.seat8 = new System.Windows.Forms.Button();
             this.seat6 = new System.Windows.Forms.Button();
             this.seat5 = new System.Windows.Forms.Button();
             this.seat4 = new System.Windows.Forms.Button();
@@ -48,8 +50,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.seat8 = new System.Windows.Forms.Button();
-            this.seat7 = new System.Windows.Forms.Button();
             this.swap_button = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -144,6 +144,26 @@
             this.groupBox1.Size = new System.Drawing.Size(284, 295);
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
+            // 
+            // seat7
+            // 
+            this.seat7.Location = new System.Drawing.Point(6, 229);
+            this.seat7.Name = "seat7";
+            this.seat7.Size = new System.Drawing.Size(64, 64);
+            this.seat7.TabIndex = 7;
+            this.seat7.Text = "7";
+            this.seat7.UseVisualStyleBackColor = true;
+            this.seat7.Click += new System.EventHandler(this.Seat7_Click);
+            // 
+            // seat8
+            // 
+            this.seat8.Location = new System.Drawing.Point(214, 225);
+            this.seat8.Name = "seat8";
+            this.seat8.Size = new System.Drawing.Size(64, 64);
+            this.seat8.TabIndex = 6;
+            this.seat8.Text = "8";
+            this.seat8.UseVisualStyleBackColor = true;
+            this.seat8.Click += new System.EventHandler(this.Seat8_Click);
             // 
             // seat6
             // 
@@ -245,7 +265,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(664, 339);
+            this.button4.Location = new System.Drawing.Point(664, 336);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(101, 57);
             this.button4.TabIndex = 14;
@@ -263,26 +283,6 @@
             this.label5.Size = new System.Drawing.Size(89, 17);
             this.label5.TabIndex = 15;
             this.label5.Text = "Unassigned";
-            // 
-            // seat8
-            // 
-            this.seat8.Location = new System.Drawing.Point(214, 225);
-            this.seat8.Name = "seat8";
-            this.seat8.Size = new System.Drawing.Size(64, 64);
-            this.seat8.TabIndex = 6;
-            this.seat8.Text = "8";
-            this.seat8.UseVisualStyleBackColor = true;
-            this.seat8.Click += new System.EventHandler(this.Seat8_Click);
-            // 
-            // seat7
-            // 
-            this.seat7.Location = new System.Drawing.Point(6, 229);
-            this.seat7.Name = "seat7";
-            this.seat7.Size = new System.Drawing.Size(64, 64);
-            this.seat7.TabIndex = 7;
-            this.seat7.Text = "7";
-            this.seat7.UseVisualStyleBackColor = true;
-            this.seat7.Click += new System.EventHandler(this.Seat7_Click);
             // 
             // swap_button
             // 
