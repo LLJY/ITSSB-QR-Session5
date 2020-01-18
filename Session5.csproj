@@ -55,6 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssignSeating.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssignSeating.Designer.cs">
+      <DependentUpon>AssignSeating.cs</DependentUpon>
+    </Compile>
     <Compile Include="CalculateBonus.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -126,6 +132,9 @@
     <Compile Include="ViewResults.Designer.cs">
       <DependentUpon>ViewResults.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AssignSeating.resx">
+      <DependentUpon>AssignSeating.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CalculateBonus.resx">
       <DependentUpon>CalculateBonus.cs</DependentUpon>
     </EmbeddedResource>

@@ -25,6 +25,7 @@ namespace Session5
             comboBox1.SelectedIndex = 0;
             DGVList = await GetResults();
             dataGridView1.DataSource = DGVList;
+            SetPositions();
         }
         public async void refreshDGV()
         {
@@ -46,11 +47,11 @@ namespace Session5
             using (var db = new Session5Entities())
             {
                 var returnlist = new List<ResultsView>();
-                var getSkillid = (from s in db.Skills
+                var Skillid = (from s in db.Skills
                                   where s.skillName == comboBox1.SelectedItem.ToString()
                                   select s.skillId).First();
                 var competitors = (from c in db.Competitors
-                                   where c.skillIdFK == getSkillid
+                                   where c.skillIdFK == Skillid
                                    select c).ToList();
                 foreach (var item in competitors)
                 {
@@ -94,11 +95,11 @@ namespace Session5
                 var positions = (from a in DGVList
                                  orderby a.TotalMarks descending
                                  select a);
-                var getSkillid = (from s in db.Skills
+                var Skillid = (from s in db.Skills
                                     where s.skillName == comboBox1.SelectedItem.ToString()
                                     select s.skillId).First();
                 var comps = (from s in db.Competitions
-                                where s.skillIdFK == getSkillid
+                                where s.skillIdFK == Skillid
                                 select new { sum = s.q1MaxMarks + s.q2MaxMarks + s.q3MaxMarks + s.q4MaxMarks }).ToList();
                 int totalmarks = 0;
                 foreach (var item in comps)
@@ -109,38 +110,49 @@ namespace Session5
                 {
                     if((item.TotalMarks / totalmarks) >= 0.8 && item.TotalMarks > CountryPositions[0].TotalMarks)
                     {
+                        Console.WriteLine("Gold");
                         CountryPositions[0] = item;
                     }
                     else if ((item.TotalMarks / totalmarks) >= 0.75 && item.TotalMarks > CountryPositions[1].TotalMarks)
                     {
+                        Console.WriteLine("Silver");
                         CountryPositions[1] = item;
                     }
                     else if ((item.TotalMarks / totalmarks) >= 0.75 && item.TotalMarks > CountryPositions[2].TotalMarks)
                     {
+                        Console.WriteLine("Silver");
                         CountryPositions[2] = item;
                     }
-                    else if ((item.TotalMarks / totalmarks) >= 0.71 && item.TotalMarks > CountryPositions[2].TotalMarks)
+                    else if ((item.TotalMarks / totalmarks) >= 0.71 && item.TotalMarks > CountryPositions[3].TotalMarks)
                     {
+                        Console.WriteLine("Bronze");
                         CountryPositions[3] = item;
                     }
                 }
                 for (int i = 0; i <= 4; i++)
-                {                    
-                    if(i == 1)
+                {
+                    try
                     {
-                        gold_label.Text = CountryPositions[i].Country;
+                        if (i == 0)
+                        {
+                            gold_label.Text = CountryPositions[i].Country;
+                        }
+                        else if (i == 1)
+                        {
+                            silver_label1.Text = CountryPositions[i].Country;
+                        }
+                        else if (i == 2)
+                        {
+                            silver_label2.Text = CountryPositions[i].Country;
+                        }
+                        else if (i == 3)
+                        {
+                            black_label.Text = CountryPositions[i].Country;
+                        }
                     }
-                    else if (i == 2)
+                    catch
                     {
-                        silver_label1.Text = CountryPositions[i].Country;
-                    }
-                    else if(i == 3)
-                    {
-                        silver_label2.Text = CountryPositions[i].Country;
-                    }
-                    else if(i == 4)
-                    {
-                        black_label.Text = CountryPositions[i].Country;
+
                     }
 
                 }

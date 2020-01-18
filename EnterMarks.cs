@@ -147,9 +147,6 @@ namespace Session5
                     q3Marks = 0,
                     q4Marks = 0,
                     totalMarks = 00,
-                    resultsId = (from a in db.Results
-                                 orderby a.resultsId descending
-                                 select a.resultsId).First()+1
                 };
                 for (int i = 0; i < dataGridView1.Rows.Count; i++)
                 {

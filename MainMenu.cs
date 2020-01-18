@@ -19,7 +19,10 @@ namespace Session5
 
         private void assign_seating_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            var form = new AssignSeating();
+            form.Closed += (s, args) => this.Close();
+            form.Show();
         }
 
         private void enter_marks_Click(object sender, EventArgs e)
@@ -40,10 +43,12 @@ namespace Session5
 
         private void analyze_results_Click(object sender, EventArgs e)
         {
+            /*
             this.Hide();
             var form = new AnalyzeResults();
             form.Closed += (s, args) => this.Close();
             form.Show();
+            */
         }
 
         private void calculate_bonus_Click(object sender, EventArgs e)
