@@ -53,6 +53,13 @@ namespace Session5
                 var competitors = (from c in db.Competitors
                                    where c.skillIdFK == Skillid
                                    select c).ToList();
+                number_sessions_label.Text = (from c in db.Competitions
+                                     where c.skillIdFK == Skillid
+                                     select c).Count().ToString();
+                completed_sessions_label.Text = (from r in db.Results
+                                         where r.totalMarks != 0
+                                         where r.Competition.skillIdFK == Skillid
+                                         select r.competitionIdFK).Distinct().Count().ToString();
                 foreach (var item in competitors)
                 {
 
@@ -135,19 +142,19 @@ namespace Session5
                     {
                         if (i == 0)
                         {
-                            gold_label.Text = CountryPositions[i].Country;
+                            gold_flag.Image = setFlag(CountryPositions[i].Country);
                         }
                         else if (i == 1)
                         {
-                            silver_label1.Text = CountryPositions[i].Country;
+                            silver_flag.Image = setFlag(CountryPositions[i].Country);
                         }
                         else if (i == 2)
                         {
-                            silver_label2.Text = CountryPositions[i].Country;
+                            silver2_flag.Image = setFlag(CountryPositions[i].Country);
                         }
                         else if (i == 3)
                         {
-                            black_label.Text = CountryPositions[i].Country;
+                            shit_flag.Image = setFlag(CountryPositions[i].Country);
                         }
                     }
                     catch
@@ -158,13 +165,49 @@ namespace Session5
                 }
             }
         }
-        private void setFlag(int pos)
+        public Image setFlag(string country)
         {
-
+            switch (country)
+            {
+                case "Singapore":
+                    return Image.FromFile(@"C:\Images\singapore.png");
+                    break;
+                case "Malaysia":
+                    return Image.FromFile(@"C:\Images\malaysia.png");
+                    break;
+                case "Indonesia":
+                    return Image.FromFile(@"C:\Images\indonesia.png");
+                    break;
+                case "Philippines":
+                    return Image.FromFile(@"C:\Images\phillipines.png");
+                    break;
+                case "Thailand":
+                    return Image.FromFile(@"C:\Images\thailand.png");
+                    break;
+                case "Brunei":
+                    return Image.FromFile(@"C:\Images\brunei.png");
+                    break;
+                case "Cambodia":
+                    return Image.FromFile(@"C:\Images\cambodia.png");
+                    break;
+            }
+            return null;
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             refreshDGV();
+            gold_flag.Image = null;
+            silver_flag.Image = null;
+            silver2_flag.Image = null;
+            shit_flag.Image = null;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            var form = new MainMenu();
+            form.Closed += (s, args) => this.Close();
+            form.Show();
         }
     }
     public class ResultsView

@@ -44,6 +44,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnalyzeResults.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnalyzeResults.Designer.cs">
+      <DependentUpon>AnalyzeResults.cs</DependentUpon>
+    </Compile>
     <Compile Include="AssignSeating.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +139,9 @@
     <Compile Include="ViewResults.Designer.cs">
       <DependentUpon>ViewResults.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AnalyzeResults.resx">
+      <DependentUpon>AnalyzeResults.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AssignSeating.resx">
       <DependentUpon>AssignSeating.cs</DependentUpon>
     </EmbeddedResource>
