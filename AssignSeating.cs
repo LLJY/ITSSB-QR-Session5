@@ -85,6 +85,18 @@ namespace Session5
                     seat7.Visible = true;
                     seat8.Visible = true;
                 }
+                if (comps.Count < 6)
+                {
+                    seat7.Visible = false;
+                    seat8.Visible = false;
+                    seat6.Visible = false;
+                }
+                else
+                {
+                    seat7.Visible = true;
+                    seat8.Visible = true;
+                    seat6.Visible = true;
+                }
                 assignedcomp_label.Text = assignedlist.Count.ToString();
                 unassigned_label.Text = UnassignedList.Count.ToString();
             }
