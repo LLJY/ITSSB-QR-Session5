@@ -38,5 +38,10 @@ namespace Session5
                 MessageBox.Show("Invalid Login");
             }
         }
+
+        private void Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

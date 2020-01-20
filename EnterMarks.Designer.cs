@@ -85,7 +85,7 @@
             // 
             this.skill_combo.FormattingEnabled = true;
             this.skill_combo.Location = new System.Drawing.Point(205, 96);
-            this.skill_combo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.skill_combo.Margin = new System.Windows.Forms.Padding(2);
             this.skill_combo.Name = "skill_combo";
             this.skill_combo.Size = new System.Drawing.Size(92, 21);
             this.skill_combo.TabIndex = 5;
@@ -95,7 +95,7 @@
             // 
             this.session_combo.FormattingEnabled = true;
             this.session_combo.Location = new System.Drawing.Point(205, 124);
-            this.session_combo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.session_combo.Margin = new System.Windows.Forms.Padding(2);
             this.session_combo.Name = "session_combo";
             this.session_combo.Size = new System.Drawing.Size(92, 21);
             this.session_combo.TabIndex = 6;
@@ -105,7 +105,7 @@
             // 
             this.name_combo.FormattingEnabled = true;
             this.name_combo.Location = new System.Drawing.Point(205, 150);
-            this.name_combo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.name_combo.Margin = new System.Windows.Forms.Padding(2);
             this.name_combo.Name = "name_combo";
             this.name_combo.Size = new System.Drawing.Size(177, 21);
             this.name_combo.TabIndex = 7;
@@ -126,7 +126,7 @@
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(11, 184);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -160,17 +160,18 @@
             // clear_form
             // 
             this.clear_form.Location = new System.Drawing.Point(475, 383);
-            this.clear_form.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.clear_form.Margin = new System.Windows.Forms.Padding(2);
             this.clear_form.Name = "clear_form";
             this.clear_form.Size = new System.Drawing.Size(114, 43);
             this.clear_form.TabIndex = 12;
             this.clear_form.Text = "Clear Form";
             this.clear_form.UseVisualStyleBackColor = true;
+            this.clear_form.Click += new System.EventHandler(this.Clear_form_Click);
             // 
             // submit_button
             // 
             this.submit_button.Location = new System.Drawing.Point(475, 432);
-            this.submit_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.submit_button.Margin = new System.Windows.Forms.Padding(2);
             this.submit_button.Name = "submit_button";
             this.submit_button.Size = new System.Drawing.Size(114, 43);
             this.submit_button.TabIndex = 13;
@@ -181,7 +182,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(2, 5);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(82, 38);
             this.button1.TabIndex = 14;
@@ -238,7 +239,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "EnterMarks";
             this.Text = "EnterMarks";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

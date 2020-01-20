@@ -52,3 +52,4 @@ C:\Users\lucas\Source\Repos\ITSSB-QR-Session5\obj\Debug\Session5.csproj.CopyComp
 C:\Users\lucas\Source\Repos\ITSSB-QR-Session5\obj\Debug\Session5.exe
 C:\Users\lucas\Source\Repos\ITSSB-QR-Session5\obj\Debug\Session5.pdb
 C:\Users\lucas\source\repos\ITSSB-QR-Session5\obj\Debug\Session5.AnalyzeResults.resources
+C:\Users\lucas\Desktop\projects\ITSSB-QR\ITSSB-QR-Session5\obj\Debug\Session5.AnalyzeResults.resources

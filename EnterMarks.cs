@@ -44,6 +44,10 @@ namespace Session5
                         select s.sessionNo.ToString()).ToList();
             }
         }
+        /// <summary>
+        /// Get competitors to fill up combobox
+        /// </summary>
+        /// <returns></returns>
         public async Task<List<string>> getCompetitors()
         {
             using (var db = new Session5Entities())
@@ -56,6 +60,9 @@ namespace Session5
                         select s.competitorName).ToList();
             }
         }
+        /// <summary>
+        /// Get all the data to fill up the user interface.
+        /// </summary>
         public void GetData()
         {
             using (var db = new Session5Entities())
@@ -222,6 +229,13 @@ namespace Session5
             var form = new MainMenu();
             form.Closed += (s, args) => this.Close();
             form.Show();
+        }
+
+        private void Clear_form_Click(object sender, EventArgs e)
+        {
+            skill_combo.SelectedIndex = 0;
+            session_combo.SelectedIndex = 0;
+            name_combo.SelectedIndex = 0;
         }
     }
     public class MarksEnter
